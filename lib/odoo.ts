@@ -28,7 +28,7 @@ async function odooPost<T>(
   model: string,
   method: string,
   body: Record<string, unknown>,
-  revalidate = 60,
+  revalidate = 0,
 ): Promise<T> {
   const res = await fetch(`${ODOO_BASE_URL}/json/2/${model}/${method}`, {
     method: 'POST',
@@ -47,10 +47,12 @@ async function odooPost<T>(
 
 // ─── Jobs ─────────────────────────────────────────────────────────────────────
 
-export async function fetchJobs(): Promise<OdooJob[]> {
+export async function fetchJobs(offset = 0, limit = 10): Promise<OdooJob[]> {
   return odooPost<OdooJob[]>('hr.job', 'search_read', {
     domain: [['website_published', '=', true]],
     fields: JOB_FIELDS,
+    offset,
+    limit,
   });
 }
 

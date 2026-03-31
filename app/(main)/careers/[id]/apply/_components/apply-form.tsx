@@ -88,8 +88,18 @@ export default function ApplyForm({ job }: Props) {
   // ── Form ───────────────────────────────────────────────────────────────────
   return (
     <>
+      {/* Back link — same style as "← All jobs" on the detail page */}
+      <div className="max-w-screen-xl mx-auto px-6 pt-16">
+        <Link
+          href={`/careers/${job.id}`}
+          className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-white transition-colors duration-200"
+        >
+          ← View Job Description
+        </Link>
+      </div>
+
       {/* Hero header */}
-      <div className="max-w-screen-xl mx-auto px-6 pt-16 pb-6 text-center">
+      <div className="max-w-screen-xl mx-auto px-6 pt-8 pb-6 text-center">
         <div className="mb-4">
           <SubHeader title="Join Our Team" />
         </div>
@@ -197,14 +207,6 @@ export default function ApplyForm({ job }: Props) {
 
       <aside className="space-y-6">
         <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-          {/* Back link at top */}
-          <Link
-            href={`/careers/${job.id}`}
-            className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-white mb-6 transition-colors duration-200"
-          >
-            ← View Job Description
-          </Link>
-
           <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">You&apos;re applying for</p>
           <h3 className="text-lg font-semibold text-white mb-4 leading-snug">{job.name}</h3>
 

@@ -35,6 +35,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: `${job.name} | Careers at Dexnive`,
       description,
+      openGraph: {
+        title: `${job.name} | Careers at Dexnive`,
+        description,
+        url: `https://dexnive.com/careers/${job.id}`,
+        images: [
+          {
+            url: "/logo2.png",
+            width: 1200,
+            height: 630,
+            alt: "Dexnive",
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${job.name} | Careers at Dexnive`,
+        description,
+        images: ["/logo2.png"],
+      },
     };
   } catch {
     return { title: 'Careers | Dexnive' };

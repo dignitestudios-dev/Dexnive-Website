@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
 import SubHeader from "@/components/ui/sub-header";
 
@@ -20,6 +20,11 @@ interface FieldErrors {
   partner_name?: string;
   email_from?: string;
   partner_phone?: string;
+  linkedin_profile?: string;
+  applicant_notes?: string;
+  x_studio_current_pay?: string;
+  x_studio_expected_pay?: string;
+  x_studio_total_experience?: string;
   resume?: string;
   job_id?: string;
 }
@@ -27,22 +32,52 @@ interface FieldErrors {
 export default function ApplyForm({ job }: Props) {
   const [errors, setErrors]       = useState<FieldErrors>({});
   const [serverError, setServerError] = useState("");
+  const [formError, setFormError] = useState("");
   const [loading, setLoading]     = useState(false);
   const [success, setSuccess]     = useState(false);
-  const [fileName, setFileName]   = useState("");
-  const fileRef                   = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFileUrl, setSelectedFileUrl] = useState("");
 
   const dept     = Array.isArray(job.department_id) ? job.department_id[1] : null;
   const location = Array.isArray(job.address_id)    ? job.address_id[1]    : null;
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setSelectedFileUrl("");
+      return;
+    }
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setSelectedFileUrl(objectUrl);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
+  function clearFieldError(field: keyof FieldErrors) {
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      if (Object.keys(next).length === 0) setFormError("");
+      return next;
+    });
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({});
     setServerError("");
+    setFormError("");
     setLoading(true);
 
     const form = new FormData(e.currentTarget);
     form.set("job_id", String(job.id));
+    const clientErrors = validateForm(form);
+
+    if (Object.keys(clientErrors).length > 0) {
+      setErrors(clientErrors);
+      setFormError("Please fix the highlighted fields before submitting.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await fetch("/api/jobs/apply", { method: "POST", body: form });
@@ -50,6 +85,7 @@ export default function ApplyForm({ job }: Props) {
 
       if (res.status === 422) {
         setErrors(data.errors ?? {});
+        setFormError("Please fix the highlighted fields before submitting.");
       } else if (!res.ok) {
         setServerError(data.error ?? "Something went wrong. Please try again.");
       } else {
@@ -113,7 +149,7 @@ export default function ApplyForm({ job }: Props) {
 
       {/* Form (2/3) + Sidebar (1/3) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-screen-xl mx-auto px-6 py-16">
-      <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-6">
+      <form noValidate onSubmit={handleSubmit} className="lg:col-span-2 space-y-6">
         <h2 className="text-2xl font-bold text-white mb-2">Your Details</h2>
         <p className="text-gray-500 text-sm mb-6">Fields marked with <span className="text-[#C4A0FF]">*</span> are required.</p>
 
@@ -129,72 +165,164 @@ export default function ApplyForm({ job }: Props) {
             name="partner_name"
             type="text"
             placeholder="Muhammad Ali"
+            onChange={() => clearFieldError("partner_name")}
             className={inputClass(!!errors.partner_name)}
           />
         </Field>
 
-        {/* Email */}
-        <Field label="Email Address" required error={errors.email_from}>
-          <input
-            name="email_from"
-            type="email"
-            placeholder="ali@example.com"
-            className={inputClass(!!errors.email_from)}
-          />
-        </Field>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Email */}
+          <Field label="Email Address" required error={errors.email_from}>
+            <input
+              name="email_from"
+              type="email"
+              placeholder="ali@example.com"
+              onChange={() => clearFieldError("email_from")}
+              className={inputClass(!!errors.email_from)}
+            />
+          </Field>
 
-        {/* Phone */}
-        <Field label="Phone Number" required error={errors.partner_phone}>
+          {/* Phone */}
+          <Field label="Phone Number" required error={errors.partner_phone}>
+            <input
+              name="partner_phone"
+              type="text"
+              inputMode="numeric"
+              maxLength={15}
+              onInput={(e) => {
+                const target = e.currentTarget;
+                target.value = target.value.replace(/\D/g, "").slice(0, 15);
+                clearFieldError("partner_phone");
+              }}
+              placeholder="03001234567"
+              className={inputClass(!!errors.partner_phone)}
+            />
+          </Field>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Field label="Current Pay" required error={errors.x_studio_current_pay}>
+            <input
+              name="x_studio_current_pay"
+              type="text"
+              inputMode="numeric"
+              maxLength={12}
+              onInput={(e) => {
+                const target = e.currentTarget;
+                target.value = target.value.replace(/\D/g, "").slice(0, 12);
+                clearFieldError("x_studio_current_pay");
+              }}
+              placeholder="e.g. 120000"
+              className={inputClass(!!errors.x_studio_current_pay)}
+            />
+          </Field>
+
+          <Field label="Expected Pay" required error={errors.x_studio_expected_pay}>
+            <input
+              name="x_studio_expected_pay"
+              type="text"
+              inputMode="numeric"
+              maxLength={12}
+              onInput={(e) => {
+                const target = e.currentTarget;
+                target.value = target.value.replace(/\D/g, "").slice(0, 12);
+                clearFieldError("x_studio_expected_pay");
+              }}
+              placeholder="e.g. 180000"
+              className={inputClass(!!errors.x_studio_expected_pay)}
+            />
+          </Field>
+        </div>
+
+        <Field label="Total Experience (Years)" required error={errors.x_studio_total_experience}>
           <input
-            name="partner_phone"
-            type="tel"
-            placeholder="+92 300 0000000"
-            className={inputClass(!!errors.partner_phone)}
+            name="x_studio_total_experience"
+            type="text"
+            inputMode="numeric"
+            maxLength={2}
+            onInput={(e) => {
+              const target = e.currentTarget;
+              target.value = target.value.replace(/\D/g, "").slice(0, 2);
+              clearFieldError("x_studio_total_experience");
+            }}
+            placeholder="e.g. 4"
+            className={inputClass(!!errors.x_studio_total_experience)}
           />
         </Field>
 
         {/* LinkedIn */}
-        <Field label="LinkedIn Profile URL" error={undefined} hint="Required if no resume is uploaded.">
+        <Field label="LinkedIn Profile URL" required error={errors.linkedin_profile}>
           <input
             name="linkedin_profile"
             type="url"
             placeholder="https://linkedin.com/in/yourprofile"
-            className={inputClass(false)}
+            onChange={() => clearFieldError("linkedin_profile")}
+            className={inputClass(!!errors.linkedin_profile)}
           />
         </Field>
 
         {/* Resume */}
-        <Field label="Resume / CV" error={errors.resume} hint="PDF, DOC or DOCX — max 5 MB. Required if no LinkedIn provided.">
-          <button
-            type="button"
-            onClick={() => fileRef.current?.click()}
-            className="w-full text-left rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-gray-400 hover:border-[#840ECD]/60 hover:bg-white/8 transition-colors duration-200 focus:outline-none focus:border-[#840ECD]"
+        <Field label="Resume / CV" required error={errors.resume} hint="PDF, DOC or DOCX — max 5 MB.">
+          <label
+            className={[
+              "relative flex flex-col items-center justify-center gap-2 rounded-xl border-2 px-4 py-8 text-center cursor-pointer transition-colors",
+              errors.resume ? "border-red-500/60 bg-red-500/5" : "border-gray-600/70 bg-white/[0.03] hover:border-gray-500/80",
+            ].join(" ")}
+            style={{ borderStyle: "dashed" }}
           >
-            {fileName ? (
-              <span className="text-white">{fileName}</span>
-            ) : (
-              <span>Click to upload file…</span>
-            )}
-          </button>
-          <input
-            ref={fileRef}
-            name="resume"
-            type="file"
-            accept=".pdf,.doc,.docx"
-            className="hidden"
-            onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
-          />
+            <div className="w-12 h-12 rounded-full bg-[#840ECD]/20 border border-[#840ECD]/35 flex items-center justify-center">
+              <svg className="w-7 h-7 text-[#C4A0FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 16.5 12 12m0 0L7.5 16.5M12 12v9M6.75 7.5a4.5 4.5 0 0 0-3 7.852M6.75 7.5a5.25 5.25 0 0 1 10.306-1.228 4.5 4.5 0 0 1 3.194 8.77M6.75 7.5a5.23 5.23 0 0 0-.447 2.144" />
+              </svg>
+            </div>
+            <p className="text-sm text-white font-medium">
+              {selectedFile ? selectedFile.name : "Click to upload your CV"}
+            </p>
+            <p className="text-xs text-gray-500">PDF, DOC or DOCX</p>
+            <input
+              name="resume"
+              type="file"
+              accept=".pdf,.doc,.docx"
+              className="absolute inset-0 opacity-0 cursor-pointer"
+              onChange={(e) => {
+                setSelectedFile(e.currentTarget.files?.[0] ?? null);
+                clearFieldError("resume");
+              }}
+            />
+          </label>
+
+          {selectedFileUrl && (
+            <a
+              href={selectedFileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs text-[#C4A0FF] hover:text-white transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .644C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+              View uploaded CV
+            </a>
+          )}
         </Field>
 
         {/* Short Introduction */}
-        <Field label="Short Introduction" error={undefined} hint="Tell us a bit about yourself and why you're a great fit.">
+        <Field label="Short Introduction" required error={errors.applicant_notes} hint="Tell us a bit about yourself and why you're a great fit.">
           <textarea
             name="applicant_notes"
             rows={5}
             placeholder="I'm a passionate engineer with 3 years of experience…"
-            className={inputClass(false) + " resize-none"}
+            onChange={() => clearFieldError("applicant_notes")}
+            className={inputClass(!!errors.applicant_notes) + " resize-none"}
           />
         </Field>
+
+        {formError && (
+          <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            {formError}
+          </div>
+        )}
 
         <button
           type="submit"
@@ -254,6 +382,45 @@ export default function ApplyForm({ job }: Props) {
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
+
+function validateForm(form: FormData): FieldErrors {
+  const errors: FieldErrors = {};
+  const partnerName = (form.get("partner_name") as string | null)?.trim() ?? "";
+  const email = (form.get("email_from") as string | null)?.trim() ?? "";
+  const phone = (form.get("partner_phone") as string | null)?.trim() ?? "";
+  const currentPay = (form.get("x_studio_current_pay") as string | null)?.trim() ?? "";
+  const expectedPay = (form.get("x_studio_expected_pay") as string | null)?.trim() ?? "";
+  const totalExperience = (form.get("x_studio_total_experience") as string | null)?.trim() ?? "";
+  const linkedIn = (form.get("linkedin_profile") as string | null)?.trim() ?? "";
+  const applicantNotes = (form.get("applicant_notes") as string | null)?.trim() ?? "";
+  const resume = form.get("resume");
+  const hasResume = resume instanceof File && resume.size > 0;
+
+  if (!partnerName) errors.partner_name = "Full name is required.";
+
+  if (!email) errors.email_from = "Email address is required.";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email_from = "Please enter a valid email address.";
+
+  if (!phone) errors.partner_phone = "Phone number is required.";
+  else if (!/^\d{7,15}$/.test(phone)) errors.partner_phone = "Phone number must be 7 to 15 digits.";
+
+  if (!currentPay) errors.x_studio_current_pay = "Current pay is required.";
+  else if (!/^\d+$/.test(currentPay)) errors.x_studio_current_pay = "Current pay must contain numbers only.";
+
+  if (!expectedPay) errors.x_studio_expected_pay = "Expected pay is required.";
+  else if (!/^\d+$/.test(expectedPay)) errors.x_studio_expected_pay = "Expected pay must contain numbers only.";
+
+  if (!totalExperience) errors.x_studio_total_experience = "Total experience is required.";
+  else if (!/^\d+$/.test(totalExperience)) errors.x_studio_total_experience = "Total experience must contain numbers only.";
+
+  if (!linkedIn) errors.linkedin_profile = "LinkedIn profile URL is required.";
+  else if (!/^https?:\/\/.+/i.test(linkedIn)) errors.linkedin_profile = "Please enter a valid LinkedIn URL.";
+
+  if (!hasResume) errors.resume = "Resume is required.";
+  if (!applicantNotes) errors.applicant_notes = "Short introduction is required.";
+
+  return errors;
+}
 
 function inputClass(hasError: boolean) {
   return [

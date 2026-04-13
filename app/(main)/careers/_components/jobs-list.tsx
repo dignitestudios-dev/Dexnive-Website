@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import type { OdooJob } from "@/lib/odoo.types";
+import ShareJobButton from "./share-job-button";
 
 const LIMIT = 10;
 
@@ -20,12 +21,9 @@ function JobCard({ job }: { job: OdooJob }) {
       : "";
 
   return (
-    <Link
-      href={`/careers/${job.id}`}
-      className="group block border-b border-white/10 py-7 hover:border-[#7C1FFF]/50 transition-colors duration-200"
-    >
+    <div className="border-b border-white/10 py-7 hover:border-[#7C1FFF]/50 transition-colors duration-200">
       <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0">
+        <Link href={`/careers/${job.id}`} className="group block flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-2">
             {dept && <span className="text-xs text-[#C4A0FF]">{dept}</span>}
             {dept && location && <span className="text-xs text-white/20">·</span>}
@@ -49,13 +47,20 @@ function JobCard({ job }: { job: OdooJob }) {
               {preview}
             </p>
           )}
-        </div>
+        </Link>
 
-        <span className="text-[#7C1FFF] group-hover:text-[#C4A0FF] text-sm mt-1 shrink-0 transition-colors">
-          →
-        </span>
+        <div className="flex items-center gap-2 mt-1 shrink-0">
+          <ShareJobButton path={`/careers/${job.id}`} title={job.name} />
+          <Link
+            href={`/careers/${job.id}`}
+            className="text-[#7C1FFF] hover:text-[#C4A0FF] text-sm transition-colors"
+            aria-label={`View ${job.name}`}
+          >
+            →
+          </Link>
+        </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

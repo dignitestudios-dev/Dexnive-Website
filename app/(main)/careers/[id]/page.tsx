@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { fetchJobById, fetchJobs } from '@/lib/odoo';
 import SubHeader from '@/components/ui/sub-header';
+import ShareJobButton from '../_components/share-job-button';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -90,7 +91,10 @@ export default async function JobDetailPage({ params }: PageProps) {
           )}
         </div>
 
-        <ApplyButton href={applyUrl} />
+        <div className="flex items-center gap-3">
+          <ApplyButton href={applyUrl} />
+          <ShareJobButton path={`/careers/${job.id}`} title={job.name} />
+        </div>
       </div>
 
       {/* Description */}
@@ -128,7 +132,10 @@ export default async function JobDetailPage({ params }: PageProps) {
 
           <div className="mt-12 pt-8 border-t border-white/10">
             <p className="text-gray-500 text-sm mb-5">Interested? We&apos;d love to hear from you.</p>
-            <ApplyButton href={applyUrl} />
+            <div className="flex items-center gap-3">
+              <ApplyButton href={applyUrl} />
+              <ShareJobButton path={`/careers/${job.id}`} title={job.name} />
+            </div>
           </div>
         </div>
       </div>

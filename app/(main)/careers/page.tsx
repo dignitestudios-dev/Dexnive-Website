@@ -1,15 +1,15 @@
 // app/careers/page.tsx
 
-import type { Metadata } from 'next';
-import Image from 'next/image';
-import { fetchJobs } from '@/lib/odoo';
-import type { OdooJob } from '@/lib/odoo.types';
-import SubHeader from '@/components/ui/sub-header';
-import JobsList from './_components/jobs-list';
+import type { Metadata } from "next";
+import Image from "next/image";
+import { fetchJobs } from "@/lib/odoo";
+import type { OdooJob } from "@/lib/odoo.types";
+import SubHeader from "@/components/ui/sub-header";
+import JobsList from "./_components/jobs-list";
 
 export const metadata: Metadata = {
-  title: 'Careers | Dexnive',
-  description: 'Join the Dexnive team. Explore our open positions.',
+  title: "Careers | Dexnive",
+  description: "Join the Dexnive team. Explore our open positions.",
 };
 
 const LIMIT = 10;
@@ -24,7 +24,7 @@ export default async function CareersPage() {
     initialJobs = jobs;
     initialHasMore = jobs.length === LIMIT;
   } catch (err) {
-    error = err instanceof Error ? err.message : 'Failed to load jobs';
+    error = err instanceof Error ? err.message : "Failed to load jobs";
   }
 
   return (
@@ -52,14 +52,19 @@ export default async function CareersPage() {
       <div className="relative z-10 max-w-screen-xl mx-auto px-6 pb-24">
         {error && (
           <div className="border border-red-500/20 bg-red-900/10 text-red-400 rounded-xl p-5 mb-8 text-sm">
-            <span className="font-medium">Failed to load jobs — </span>{error}
+            <span className="font-medium">Failed to load jobs — </span>
+            {error}
           </div>
         )}
 
         {!error && initialJobs.length === 0 && (
           <div className="text-center py-24">
-            <p className="text-xl font-semibold text-white mb-2">No open positions right now</p>
-            <p className="text-gray-500 text-sm">Check back soon — we&apos;re always growing.</p>
+            <p className="text-xl font-semibold text-white mb-2">
+              No open positions right now
+            </p>
+            <p className="text-gray-500 text-sm">
+              Check back soon — we&apos;re always growing.
+            </p>
           </div>
         )}
 

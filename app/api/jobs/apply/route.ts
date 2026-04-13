@@ -17,6 +17,9 @@ export async function POST(req: NextRequest) {
     const partnerPhone    = (form.get("partner_phone")    as string | null)?.trim() ?? "";
     const linkedinProfile = (form.get("linkedin_profile") as string | null)?.trim() ?? "";
     const applicantNotes  = (form.get("applicant_notes")  as string | null)?.trim() ?? "";
+    const currentPay      = (form.get("x_studio_current_pay") as string | null)?.trim() ?? "";
+    const expectedPay     = (form.get("x_studio_expected_pay") as string | null)?.trim() ?? "";
+    const totalExperience = (form.get("x_studio_total_experience") as string | null)?.trim() ?? "";
     const jobId           = parseInt(form.get("job_id")   as string, 10);
     const file            = form.get("resume") as File | null;
 
@@ -31,10 +34,42 @@ export async function POST(req: NextRequest) {
       errors.email_from = "Please enter a valid email address.";
     }
 
-    if (!partnerPhone) errors.partner_phone = "Phone number is required.";
+    if (!partnerPhone) {
+      errors.partner_phone = "Phone number is required.";
+    } else if (!/^\d{7,15}$/.test(partnerPhone)) {
+      errors.partner_phone = "Phone number must be 7 to 15 digits.";
+    }
 
-    if (!file && !linkedinProfile) {
-      errors.resume = "Please upload a resume or provide your LinkedIn profile URL.";
+    if (!currentPay) {
+      errors.x_studio_current_pay = "Current pay is required.";
+    } else if (!/^\d+$/.test(currentPay)) {
+      errors.x_studio_current_pay = "Current pay must contain numbers only.";
+    }
+
+    if (!expectedPay) {
+      errors.x_studio_expected_pay = "Expected pay is required.";
+    } else if (!/^\d+$/.test(expectedPay)) {
+      errors.x_studio_expected_pay = "Expected pay must contain numbers only.";
+    }
+
+    if (!totalExperience) {
+      errors.x_studio_total_experience = "Total experience is required.";
+    } else if (!/^\d+$/.test(totalExperience)) {
+      errors.x_studio_total_experience = "Total experience must contain numbers only.";
+    }
+
+    if (!linkedinProfile) {
+      errors.linkedin_profile = "LinkedIn profile URL is required.";
+    } else if (!/^https?:\/\/.+/i.test(linkedinProfile)) {
+      errors.linkedin_profile = "Please enter a valid LinkedIn URL.";
+    }
+
+    if (!applicantNotes) {
+      errors.applicant_notes = "Short introduction is required.";
+    }
+
+    if (!file) {
+      errors.resume = "Resume is required.";
     }
 
     if (file) {
@@ -58,6 +93,9 @@ export async function POST(req: NextRequest) {
       email_from:       emailFrom,
       partner_phone:    partnerPhone,
       linkedin_profile: linkedinProfile || undefined,
+      x_studio_current_pay: currentPay || undefined,
+      x_studio_expected_pay: expectedPay || undefined,
+      x_studio_total_experience: totalExperience || undefined,
       applicant_notes:  applicantNotes
         ? `<p>${applicantNotes.replace(/\n/g, "<br/>")}</p>`
         : undefined,

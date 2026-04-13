@@ -73,6 +73,9 @@ export interface ApplicantData {
   partner_phone: string;
   linkedin_profile?: string;
   applicant_notes?: string;
+  x_studio_current_pay?: string;
+  x_studio_expected_pay?: string;
+  x_studio_total_experience?: string;
 }
 
 export async function createApplicant(data: ApplicantData): Promise<number> {

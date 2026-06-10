@@ -3,6 +3,7 @@
 import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
 import SubHeader from "@/components/ui/sub-header";
+import { CustomPhoneInput } from "@/components/ui/phone-input";
 
 interface Job {
   id: number;
@@ -37,6 +38,7 @@ export default function ApplyForm({ job }: Props) {
   const [success, setSuccess]     = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedFileUrl, setSelectedFileUrl] = useState("");
+  const [phoneValue, setPhoneValue] = useState("");
 
   const dept     = Array.isArray(job.department_id) ? job.department_id[1] : null;
   const location = Array.isArray(job.address_id)    ? job.address_id[1]    : null;
@@ -184,18 +186,16 @@ export default function ApplyForm({ job }: Props) {
 
           {/* Phone */}
           <Field label="Phone Number" required error={errors.partner_phone}>
-            <input
-              name="partner_phone"
-              type="text"
-              inputMode="numeric"
-              maxLength={15}
-              onInput={(e) => {
-                const target = e.currentTarget;
-                target.value = target.value.replace(/\D/g, "").slice(0, 15);
+            <input type="hidden" name="partner_phone" value={phoneValue || ""} />
+            <CustomPhoneInput
+              value={phoneValue}
+              onChange={(val: any) => {
+                setPhoneValue(val || "");
                 clearFieldError("partner_phone");
               }}
-              placeholder="03001234567"
-              className={inputClass(!!errors.partner_phone)}
+              defaultCountry="US"
+              placeholder="Phone number"
+              className={inputClass(!!errors.partner_phone).replace("py-3", "")}
             />
           </Field>
         </div>
@@ -402,7 +402,7 @@ function validateForm(form: FormData): FieldErrors {
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email_from = "Please enter a valid email address.";
 
   if (!phone) errors.partner_phone = "Phone number is required.";
-  else if (!/^\d{7,15}$/.test(phone)) errors.partner_phone = "Phone number must be 7 to 15 digits.";
+  else if (!/^\+?\d{7,15}$/.test(phone)) errors.partner_phone = "Phone number must be valid (7 to 15 digits).";
 
   if (!currentPay) errors.x_studio_current_pay = "Current pay is required.";
   else if (!/^\d+$/.test(currentPay)) errors.x_studio_current_pay = "Current pay must contain numbers only.";

@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { cn } from "@/lib/utils";
+import { CustomPhoneInput } from "./ui/phone-input";
 
 interface Props {
   header: string;
@@ -119,11 +120,17 @@ export default function CallToAction({
 
               {/* Phone */}
               <div className="w-full">
-                <input
-                  type="text"
-                  placeholder="Phone Number"
-                  {...register("phone")}
-                  className="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                <Controller
+                  name="phone"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomPhoneInput
+                      {...field}
+                      placeholder="Phone Number"
+                      defaultCountry="US"
+                      className="w-full rounded-lg border border-white/10 bg-white/10 text-sm text-white focus-within:ring-1 focus-within:ring-purple-500"
+                    />
+                  )}
                 />
                 {errors.phone && (
                   <p className="text-xs text-red-400">{errors.phone.message}</p>

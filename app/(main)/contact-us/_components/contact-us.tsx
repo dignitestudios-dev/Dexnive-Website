@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, ContactFormValues } from "@/lib/schemas/contact.schema";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { CustomPhoneInput } from "@/components/ui/phone-input";
 
 const ContactUs = () => {
   const {
@@ -131,10 +132,17 @@ ${data.details}
               <label className="text-sm font-medium text-white">
                 Where Can We Connect With You?
               </label>
-              <input
-                {...register("phone")}
-                placeholder="Number"
-                className="w-full mt-1 outline-none rounded-lg border border-[#840ECD] bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:ring-1 focus:ring-purple-500"
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <CustomPhoneInput
+                    {...field}
+                    placeholder="Number"
+                    defaultCountry="US"
+                    className="w-full mt-1 rounded-lg border border-[#840ECD] bg-white/10 text-sm text-white focus-within:ring-1 focus-within:ring-purple-500"
+                  />
+                )}
               />
               {errors.phone && (
                 <p className="text-xs text-red-400">{errors.phone.message}</p>

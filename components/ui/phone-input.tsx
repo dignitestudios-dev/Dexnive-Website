@@ -13,9 +13,9 @@ const CustomCountrySelect = ({ value, onChange, labels, ...rest }: any) => {
     <Select value={value || ""} onValueChange={(val) => onChange(val === "" ? undefined : val)}>
       <SelectTrigger className="w-max gap-2 bg-transparent border-0 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 p-2 text-white outline-none">
         <SelectValue placeholder="🌍">
-          {value && flags[value] ? (
+          {value && flags[value as keyof typeof flags] ? (
             <span className="flex items-center gap-2">
-              {React.createElement(flags[value], { className: "w-5 h-3.5 object-cover rounded-sm" })}
+              {React.createElement(flags[value as keyof typeof flags] as any, { className: "w-5 h-3.5 object-cover rounded-sm" })}
               <span className="text-white">+{getCountryCallingCode(value)}</span>
             </span>
           ) : (
@@ -24,13 +24,13 @@ const CustomCountrySelect = ({ value, onChange, labels, ...rest }: any) => {
         </SelectValue>
       </SelectTrigger>
       <SelectContent className="bg-black text-white border-[#840ECD] z-50">
-        {getCountries().map((country) => {
-          const Flag = flags[country];
+        {getCountries().map((country: any) => {
+          const Flag = flags[country as keyof typeof flags] as any;
           return (
             <SelectItem key={country} value={country}>
               <span className="flex items-center gap-2">
                 {Flag ? <Flag className="w-5 h-3.5 object-cover rounded-sm" /> : null}
-                <span>{en[country]}</span>
+                <span>{(en as any)[country]}</span>
                 <span className="text-gray-400">+{getCountryCallingCode(country)}</span>
               </span>
             </SelectItem>

@@ -14,7 +14,7 @@ import {
 } from "./ui/select";
 import { cn } from "@/lib/utils";
 import { CustomPhoneInput } from "./ui/phone-input";
-
+import { toast } from "sonner";
 interface Props {
   header: string;
   p: string;
@@ -65,7 +65,11 @@ export default function CallToAction({
       const result = await res.json();
       if (!res.ok) throw new Error(result.message || "Something went wrong");
 
-      alert("Your message has been sent successfully 🚀");
+   toast.success("Your message has been sent successfully " ,{
+      className: "bg-[#48057D]! border-[#48057D]! text-white!",
+      position: "top-center",
+
+    } );
       reset();
     } catch (error) {
       console.error("Error submitting form:", error);

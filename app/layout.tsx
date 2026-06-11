@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
+import { Toaster } from "@/components/ui/sooner";
 
 export const satoshi = localFont({
   src: [
@@ -49,6 +50,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={` ${satoshi.variable} overflow-x-hidden antialiased`}
       >
+        <Toaster />
         {children}
       </body>
     </html>

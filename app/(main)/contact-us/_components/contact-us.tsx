@@ -13,7 +13,7 @@ import { contactSchema, ContactFormValues } from "@/lib/schemas/contact.schema";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { CustomPhoneInput } from "@/components/ui/phone-input";
-
+import { toast } from "sonner";
 const ContactUs = () => {
   const {
     control,
@@ -59,7 +59,11 @@ ${data.details}
       }
 
    reset();
-      alert("Your message has been sent successfully 🚀");
+        toast.success("Your message has been sent successfully " ,{
+      className: "bg-[#48057D]! border-[#48057D]! text-white!",
+      position: "top-center",
+
+    } );
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Failed to send message. Please try again.");

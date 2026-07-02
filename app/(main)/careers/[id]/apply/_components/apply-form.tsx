@@ -3,7 +3,6 @@
 import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
 import SubHeader from "@/components/ui/sub-header";
-import { CustomPhoneInput } from "@/components/ui/phone-input";
 
 interface Job {
   id: number;
@@ -38,7 +37,6 @@ export default function ApplyForm({ job }: Props) {
   const [success, setSuccess]     = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedFileUrl, setSelectedFileUrl] = useState("");
-  const [phoneValue, setPhoneValue] = useState("");
 
   const dept     = Array.isArray(job.department_id) ? job.department_id[1] : null;
   const location = Array.isArray(job.address_id)    ? job.address_id[1]    : null;
@@ -186,16 +184,17 @@ export default function ApplyForm({ job }: Props) {
 
           {/* Phone */}
           <Field label="Phone Number" required error={errors.partner_phone}>
-            <input type="hidden" name="partner_phone" value={phoneValue || ""} />
-            <CustomPhoneInput
-              value={phoneValue}
-              onChange={(val: any) => {
-                setPhoneValue(val || "");
+            <input
+              name="partner_phone"
+              type="tel"
+              maxLength={16}
+              onInput={(e) => {
+                const target = e.currentTarget;
+                target.value = target.value.replace(/[^\d+]/g, "").slice(0, 16);
                 clearFieldError("partner_phone");
               }}
-              defaultCountry="US"
-              placeholder="Phone number"
-              className={inputClass(!!errors.partner_phone).replace("py-3", "")}
+              placeholder="e.g. +1234567890"
+              className={inputClass(!!errors.partner_phone)}
             />
           </Field>
         </div>

@@ -41,6 +41,11 @@ const Navbar = (props: Props) => {
       label: "Custom Software Development",
       description: "Bespoke software solutions for your business",
     },
+    {
+      href: "/bpo-solutions",
+      label: "BPO Solutions",
+      description: "Reliable Business Process Outsourcing solutions",
+    },
   ];
 
   // Close desktop services dropdown when clicking outside

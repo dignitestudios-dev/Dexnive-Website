@@ -42,7 +42,7 @@ const Navbar = (props: Props) => {
       description: "Bespoke software solutions for your business",
     },
     {
-      href: "/bpo-solutions",
+      href: "/bpo-services",
       label: "BPO Services",
       description: "Reliable Business Process Outsourcing solutions",
     },

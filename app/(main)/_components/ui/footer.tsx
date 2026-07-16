@@ -98,7 +98,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="hover:text-white transition cursor-pointer">
-                <Link href="/bpo-solutions">
+                <Link href="/bpo-services">
                   BPO Services
                 </Link>
               </li>

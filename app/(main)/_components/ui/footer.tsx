@@ -99,7 +99,7 @@ const Footer = () => {
               </li>
               <li className="hover:text-white transition cursor-pointer">
                 <Link href="/bpo-solutions">
-                  BPO Solutions
+                  BPO Services
                 </Link>
               </li>
               <li className="hover:text-white transition cursor-pointer">

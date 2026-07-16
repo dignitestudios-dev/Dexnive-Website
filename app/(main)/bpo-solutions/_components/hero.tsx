@@ -26,7 +26,7 @@ const Hero = () => {
         </div>
       </div>
       <div className="flex relative justify-center items-center -mt-22" >
-        <motion.div 
+        <motion.div
           className="absolute -top-8 left-36 -z-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -40,20 +40,20 @@ const Hero = () => {
             height={400}
           />
         </motion.div>
-      <motion.div
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Image
-          src={"/images/bpo/hero.webp"}
-          className="  object-center  relative"
-          alt="hero"
-          width={1200}
-          height={1200}
-        />
-      </motion.div>
-</div>
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Image
+            src={"/images/bpo/hero.webp"}
+            className="  object-center z-[9999]  relative"
+            alt="hero"
+            width={1200}
+            height={1200}
+          />
+        </motion.div>
+      </div>
     </div>
   );
 };

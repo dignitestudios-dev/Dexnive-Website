@@ -19,7 +19,7 @@ type Props = {
 const cardLayout = [
   {
     col: "col-span-4 row-span-4",
-    height: "h-[330px]",
+    height: "h-auto md:h-[330px]",
     bg: "bg-[#840ECD]",
     icon: "/images/home/dex-apart/i1.png",
     deco: "/images/home/dex-apart/mini.png",
@@ -27,13 +27,13 @@ const cardLayout = [
   },
   {
     col: "col-span-4 row-span-3",
-    height: "h-[230px]",
+    height: "h-auto md:h-[230px]",
     bg: "bg-[#53029B]",
     icon: "/images/home/dex-apart/i2.png"
   },
   {
     col: "col-span-4 row-span-4",
-    height: "h-[330px]",
+    height: "h-auto md:h-[330px]",
     bg: "bg-[#222222]",
     icon: "/images/home/dex-apart/i3.png",
     deco: "/images/home/dex-apart/mini2.png",
@@ -41,7 +41,7 @@ const cardLayout = [
   },
   {
     col: "col-span-4 row-span-6",
-    height: "h-[480px]",
+    height: "h-auto md:h-[480px]",
     bg: "bg-gradient-to-b from-[#7C1FFF] to-[#4B0082]",
     icon: "/images/home/dex-apart/i5.png",
     deco: "/images/home/dex-apart/mini3.png",
@@ -49,7 +49,7 @@ const cardLayout = [
   },
   {
     col: "col-span-4 row-span-8",
-    height: "h-[440px]",
+    height: "h-auto md:h-[440px]",
     bg: "bg-[#222222]",
     icon: "/images/home/dex-apart/i4.png",
     deco: "/images/home/dex-apart/mini4.png",
@@ -58,7 +58,7 @@ const cardLayout = [
   },
   {
     col: "col-span-4 row-span-6",
-    height: "h-[480px]",
+    height: "h-auto md:h-[480px]",
     bg: "bg-[#840ECD]",
     icon: "/images/home/dex-apart/i6.png",
     deco: "/images/home/dex-apart/mini5.png",
@@ -129,7 +129,7 @@ const ChooseUs = ({heading , subHeading , p , choose}: Props) => {
             alt=""
             width={index > 2 ? 230 : 180}
             height={180}
-            className={layout.decoClass + " group-hover:scale-110 transition"}
+            className={layout.decoClass + " hidden md:block group-hover:scale-110 transition"}
           />
         )}
       </motion.div>

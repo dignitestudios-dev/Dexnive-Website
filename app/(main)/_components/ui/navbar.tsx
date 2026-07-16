@@ -43,7 +43,7 @@ const Navbar = (props: Props) => {
     },
     {
       href: "/bpo-solutions",
-      label: "BPO Solutions",
+      label: "BPO Services",
       description: "Reliable Business Process Outsourcing solutions",
     },
   ];
@@ -160,7 +160,7 @@ const Navbar = (props: Props) => {
             </button>
           </SheetTrigger>
 
-          <SheetContent className="bg-black text-white p-6 flex flex-col gap-6">
+          <SheetContent className="bg-black/60 backdrop-blur-lg border-l border-[#FFFFFF14] text-white p-6 flex flex-col gap-6">
             <div className="flex justify-between items-center">
               <Logo />
               {/* <SheetClose asChild>

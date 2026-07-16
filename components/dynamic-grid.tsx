@@ -83,7 +83,7 @@ export default function DynamicGrid({services}:Props) {
           <CarouselContent>
             {services.map((service) => (
               <CarouselItem key={service.title} className="w-full">
-                <div className="bg-[#0A0118] rounded-xl overflow-hidden group relative pb-8 border-[#840ECDBF] border-4 shadow-md h-full">
+                <div className="bg-[#0A0118] rounded-xl overflow-hidden group relative pb-8 border-[#840ECDBF] border-4 shadow-md h-[400px]">
                   <Image
                     src={service.image}
                     alt={service.title}

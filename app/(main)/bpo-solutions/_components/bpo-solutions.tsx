@@ -154,7 +154,7 @@ const BpoSolutions = () => {
         header=" Time to Simplify Your Business with Business Process Outsourcing!"
         p="    The right Business Process Outsourcing partner can work on your business’s operational costs while improving customer experiences. So it’s time to contact us if you’re ready to prioritize what matters and to build a solution that fits your business goals."
         btnText="Talk to the experts"
-        service=" Talk to Our BPO Experts"
+        service="BPO Services"
       />
     </div>
   );

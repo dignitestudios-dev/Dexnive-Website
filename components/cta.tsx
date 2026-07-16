@@ -164,6 +164,9 @@ export default function CallToAction({
                         <SelectItem value="Custom Software">
                           Custom Software
                         </SelectItem>
+                        <SelectItem value="BPO Services">
+                          BPO Services
+                        </SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>

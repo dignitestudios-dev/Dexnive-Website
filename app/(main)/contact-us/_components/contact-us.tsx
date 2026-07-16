@@ -184,6 +184,9 @@ ${data.details}
                         <SelectItem value="Custom Software Development">
                           Custom Software Development
                         </SelectItem>
+                        <SelectItem value="BPO Services">
+                          BPO Services
+                        </SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>

@@ -289,7 +289,7 @@ const Industries = ({
                                         "absolute top-1/2 left-1/2 lg:left-[40%] flex flex-col rounded-[16px] overflow-hidden pointer-events-auto",
                                         dragStartX === null && "transition-all duration-[700ms] ease-[cubic-bezier(0.175,0.885,0.32,1.02)]",
                                         isActive
-                                            ? "w-[320px] h-[450px] md:w-[450px] md:h-[624px] p-[20px] justify-end gap-[10px] z-30 bg-[#C2C2C2]"
+                                            ? "w-[320px] h-[450px] md:w-[400px] md:h-[500px] p-[20px] justify-end gap-[10px] z-30 bg-[#C2C2C2]"
                                             : "w-[220px] h-[280px] md:w-[300px] md:h-[350px] p-[20px] justify-between z-10 bg-[#C2C2C2]",
                                         !isVisible && "opacity-0 scale-90",
                                         !isActive && isVisible && "opacity-50",
@@ -308,7 +308,7 @@ const Industries = ({
                                         className={cn(
                                             dragStartX === null && "transition-all duration-[700ms] ease-[cubic-bezier(0.175,0.885,0.32,1.02)]",
                                             isActive
-                                                ? "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[calc(50%+60px)] w-[150px] md:w-[264px] h-[150px] md:h-[264px]"
+                                                ? "absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-[calc(50%+60px)] w-[150px] md:w-[220px] h-[150px] md:h-[220px]"
                                                 : "w-[50px] h-[50px] mb-auto"
                                         )}
                                     >
@@ -327,7 +327,7 @@ const Industries = ({
                                     >
                                         <h3
                                             className={cn(
-                                                "font-medium text-[#0B1023]",
+                                                "font-bold text-[#0B1023]",
                                                 dragStartX === null && "transition-all duration-[700ms] ease-[cubic-bezier(0.175,0.885,0.32,1.02)]",
                                                 isActive
                                                     ? "text-[24px] md:text-[32px] leading-[1.2]"
@@ -344,7 +344,7 @@ const Industries = ({
                                                 isActive ? "max-h-[200px] opacity-100 translate-y-0 delay-[400ms] mt-2" : "max-h-0 opacity-0 translate-y-4 delay-0 mt-0"
                                             )}
                                         >
-                                            <p className="font-light text-[#0B1023] text-[12px] md:text-[14px] leading-[1.6] md:leading-[25px] line-clamp-3 md:line-clamp-none">
+                                            <p className="font-light text-[#0B1023] text-[12px] md:text-[16px] leading-[1.6] md:leading-[22px] line-clamp-3 md:line-clamp-none">
                                                 {item.description}
                                             </p>
                                         </div>

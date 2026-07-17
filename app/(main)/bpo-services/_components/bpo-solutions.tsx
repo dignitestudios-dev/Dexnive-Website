@@ -15,47 +15,47 @@ import Industries from "@/components/industries";
 const bpoServicesData = [
   {
     title: "Customer Support Services",
-    description: "Customers are assisted through customer support services before, during and after a purchase. Support is provided through phone, email, live chat and other communication channels.",
+    description: "Slow or inconsistent customer support can damage satisfaction. Dexnive provides responsive multichannel support through experienced agents, helping you resolve inquiries faster and build stronger customer loyalty.",
     image: "/images/bpo/i1.webp",
   },
   {
     title: "Technical Support",
-    description: "Customers resolve problems with products, software or services through technical support. It includes troubleshooting, answering technical questions, and identifying issues. Reliable technical support reduces downtime.",
+    description: "Technical issues interrupt operations and frustrate customers. We delivers expert troubleshooting and technical assistance, reducing downtime while improving service reliability and customer confidence.",
     image: "/images/bpo/i2.webp",
   },
   {
-    title: "Outbound Call Center Service",
-    description: "Outbound call center service is the process of contacting existing and potential customers. It includes lead generation, appointment scheduling, followup calls, customer surveys, promotional campaigns.",
+    title: "Outbound Call Center Services",
+    description: "Reaching qualified prospects consistently takes time and resources. Dexnive manages outbound campaigns, lead generation, follow-ups, and appointment scheduling to increase conversions and grow your pipeline.",
     image: "/images/bpo/i3.webp",
   },
   {
-    title: "Inbound Call Center Service",
-    description: "Inbound call center services involve handling incoming customer calls. The calls are generally for inquiries and general assistance. It can be for processing orders and directing callers to the right department.",
+    title: "Inbound Call Center Services",
+    description: "High call volumes can overwhelm internal teams and delay responses. Dexnive handles incoming calls efficiently, ensuring customers receive prompt assistance and every opportunity is captured.",
     image: "/images/bpo/i4.webp",
   },
   {
     title: "Live Chat Support",
-    description: "Live chat support means providing live assistance through a website or mobile application to customers. This service is for offering immediate support without requiring a phone call.",
+    description: "Delayed responses often cause website visitors to leave. We provides real-time live chat support that answers questions instantly, increasing engagement, customer satisfaction, and conversion rates.",
     image: "/images/bpo/i5.webp",
   },
   {
     title: "Email Support",
-    description: "Email support is managing customer communication through email in a clear way. It includes responding to inquiries and handling service tickets. Timely email support mainly improves response times.",
+    description: "Unmanaged customer emails lead to slow responses and poor experiences. We delivers timely, professional email support that improves communication, resolves issues faster, and strengthens customer trust.",
     image: "/images/bpo/i6.webp",
   },
   {
     title: "Telephone Answering Services",
-    description: "Telephone answering services are for answering incoming business calls professionally at all times. They include directing calls and providing basic information to callers.",
+    description: "Missed business calls can mean lost customers and revenue. We answers every call professionally, directs inquiries accurately, and ensures your business never misses an opportunity.",
     image: "/images/bpo/i7.webp",
   },
   {
-    title: "Sales Support",
-    description: "Sales support and lead qualification services for businesses identify potential customers most likely to make a purchase. The process is about engaging prospects and scheduling appointments.",
+    title: "Sales Support & Lead Qualification",
+    description: "Sales teams often spend time on unqualified prospects. Dexnive identifies high-quality leads, nurtures potential customers, and schedules appointments to improve sales efficiency and conversion rates.",
     image: "/images/bpo/i8.webp",
   },
   {
     title: "Back Office Support",
-    description: "Back office support manages the administrative tasks that run the business operations smoothly. Services include data entry, CRM management, order processing, documentation, reporting, record management.",
+    description: "Administrative tasks reduce productivity and consume valuable resources. We manages back-office operations efficiently, allowing your team to focus on strategic growth while improving operational efficiency.",
     image: "/images/bpo/i9.webp",
   },
 ];

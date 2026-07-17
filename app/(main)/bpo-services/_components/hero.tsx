@@ -18,8 +18,8 @@ const Hero = () => {
         <h1 className="text-3xl md:text-6xl md:w-[60%] w-full mx-auto text-center font-bold">
           Professional Business Process Outsourcing Services for Different Niches
         </h1>
-        <p className="text-base md:w-[40%] w-[95%] pt-4 mx-auto text-center">
-          Professionals at Dexnive provide outstanding Business Process Outsourcing services. The BPO service let you hand over the basic, daily repetitive tasks like technical support and assistance to us while reducing your over all cost and saving time of your business. 
+        <p className="text-base md:w-[45%] w-[95%] pt-4 mx-auto text-center">
+          Professionals at Dexnive provide outstanding Business Process Outsourcing services. The BPO service let you hand over the basic, daily repetitive tasks like technical support and assistance to us while reducing your over all cost and saving time of your business.
         </p>
         <div className="md:w-[50%] w-full pt-4 mx-auto text-center">
           <HeroButton title="Explore Our BPO Services" />
@@ -29,7 +29,7 @@ const Hero = () => {
         <div className="absolute inset-0 z-0">
           <FloatingLines
             enabledWaves={["middle", "top"]}
-            topWavePosition={{x:0,y:0,rotate:0}}
+            topWavePosition={{ x: 0, y: 0, rotate: 0 }}
             lineCount={5}
             lineDistance={5}
             bendRadius={5}
@@ -40,7 +40,7 @@ const Hero = () => {
           />
         </div>
         <motion.div
-          className="absolute -top-8 left-36 -z-10"
+          className="absolute -top-8 left-32 z-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}

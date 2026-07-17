@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <div className="md:-mb-44 -mb-40">
+    <div className="md:-mb-0 -mb-40">
       <Image
         src="/images/blue-hue.png"
         alt="bg"
@@ -19,7 +19,7 @@ const Hero = () => {
           Professional Business Process Outsourcing Services for Different Niches
         </h1>
         <p className="text-base md:w-[40%] w-[95%] pt-4 mx-auto text-center">
-          Through Business Process Outsourcing services, businesses can hand over everyday tasks like customer support and technical assistance to experienced teams. It reduces overall costs and saves your business time to focus on growth.
+          Professionals at Dexnive provide outstanding Business Process Outsourcing services. The BPO service let you hand over the basic, daily repetitive tasks like technical support and assistance to us while reducing your over all cost and saving time of your business. 
         </p>
         <div className="md:w-[50%] w-full pt-4 mx-auto text-center">
           <HeroButton title="Explore Our BPO Services" />

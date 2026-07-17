@@ -17,7 +17,7 @@ const leftFaqs: FAQ[] = [
   {
     question: "What services I may get through Business Process Outsourcing?",
     answer:
-      "Business Process Outsourcing would offer customer facing and back office operations. Commonly outsourced services are: Customer support, technical support, inbound, outbound call center services, live chat, email support, sales support, lead qualification, data entry, order processing.",
+      "Business Process Outsourcing service that we provide would offer customer facing and back office operations. Commonly outsourced services are: Customer support, technical support, inbound, outbound call center services, live chat, email support, sales support, lead qualification, data entry, order processing.",
   },
   {
     question: "What advantages does a business get by Business Process Outsourcing?",

@@ -26,6 +26,19 @@ const Hero = () => {
         </div>
       </div>
       <div className="flex relative justify-center items-center -mt-22" >
+        <div className="absolute inset-0 z-0">
+          <FloatingLines
+            enabledWaves={["middle", "top"]}
+            topWavePosition={{x:0,y:0,rotate:0}}
+            lineCount={5}
+            lineDistance={5}
+            bendRadius={5}
+            bendStrength={-0.5}
+            interactive
+            parallax={false}
+            mixBlendMode="normal"
+          />
+        </div>
         <motion.div
           className="absolute -top-8 left-36 -z-10"
           initial={{ opacity: 0 }}
